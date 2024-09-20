@@ -1,30 +1,24 @@
 const http = require('http');
 const countStudents = require('./3-read_file_async');
-const fs = require('fs');
 
 const databaseFilePath = process.argv[2];
 
 const app = http.createServer((req, res) => {
-
   res.setHeader('Content-Type', 'text/plain');
 
   if (req.url === '/') {
     res.end('Hello Holberton School!');
-  }
-
-  else if (req.url === '/students') {
+  } else if (req.url === '/students') {
     res.write('This is the list of our students\n');
-    
+
     countStudents(databaseFilePath)
       .then(() => {
-        res.end(); 
+        res.end();
       })
       .catch((error) => {
-        res.end(error.message); 
+        res.end(error.message);
       });
-  }
-
-  else {
+  } else {
     res.statusCode = 404;
     res.end('Not Found');
   }

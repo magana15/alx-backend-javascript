@@ -3,7 +3,6 @@ const countStudents = require('./3-read_file_async');
 
 const app = express();
 
-
 const databaseFilePath = process.argv[2];
 
 app.get('/', (req, res) => {
@@ -18,7 +17,7 @@ app.get('/students', (req, res) => {
       res.end();
     })
     .catch((error) => {
-      res.end(error.message); 
+      res.end(error.message);
     });
 });
 

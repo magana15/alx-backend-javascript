@@ -5,7 +5,7 @@ const countStudents = (dataPath) => new Promise((resolve, reject) => {
     if (err) {
       reject(new Error('Cannot load the database'));
     }
-    //check data
+    // check data
     if (data) {
       const fileLines = data
         .toString('utf-8')

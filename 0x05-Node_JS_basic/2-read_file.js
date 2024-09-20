@@ -1,6 +1,4 @@
-
 const fs = require('fs');
-
 
 const countStudents = (dataPath) => {
   if (!fs.existsSync(dataPath) || !fs.statSync(dataPath).isFile()) {
@@ -12,12 +10,14 @@ const countStudents = (dataPath) => {
   const studentPropNames = dbFieldNames.slice(0, -1);
 
   const studentGroups = fileLines.reduce((groups, line) => {
+    const newGroups = { ...groups };
     const studentRecord = line.split(',');
     const studentPropValues = studentRecord.slice(0, -1);
     const field = studentRecord[studentRecord.length - 1];
-    groups[field] = groups[field] || [];
-    groups[field].push(Object.fromEntries(studentPropNames.map((propName, idx) => [propName, studentPropValues[idx]])));
-    return groups;
+    newGroups[field] = newGroups[field] || [];
+    newGroups[field].push(Object.fromEntries(studentPropNames.map((propName, idx) => [
+      propName, studentPropValues[idx]])));
+    return newGroups;
   }, {});
 
   const totalStudents = Object.values(studentGroups).reduce((pre, cur) => pre + cur.length, 0);
